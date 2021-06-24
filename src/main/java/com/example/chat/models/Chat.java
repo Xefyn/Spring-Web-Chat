@@ -2,6 +2,7 @@ package com.example.chat.models;
 
 import javax.persistence.*;
 import lombok.Data;
+import java.util.Date;
 
 @Data
 @Entity
@@ -21,5 +22,8 @@ public class Chat {
 
     @Column(name="message")
     private String message;
+
+    @Column(name="createdAt")
+    private Date createdAt;
 
 }
