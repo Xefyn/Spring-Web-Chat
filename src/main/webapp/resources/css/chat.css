@@ -1,11 +1,22 @@
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent; 
+}
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}
 h2{
   text-align: center;
   font-size: 1.5em;
 }
-.container{
+.rowStyle{
+  display: flex;
+  flex-wrap: wrap;
+}
+.containerStyle{
   border: 2px solid #5d0cff;
   border-radius: 15px;
-  margin: 5em;
+  height: 80vh;
 }
 .input-todo {
   padding: 14px 32px 14px 16px;
@@ -47,4 +58,41 @@ h2{
   rgba(17, 122, 255, 1) 100%
   );
   padding: 16px 22px;
+}
+
+.listTab{
+  display: flex;
+  flex-direction: column;
+  position: relative !important;
+  right: 0vh;
+  top: 0;
+  height: 100%;
+  overflow-y: scroll;
+  border: 1px solid #dcdacb;
+  padding: 0 !important;
+}
+.listItem{
+  padding: 1rem 1.5rem;
+  border: 0;
+  align-items: center;
+}
+.listItem:hover{
+  cursor: pointer;
+  background-color: #f2f3f5;
+}
+
+/* chat */
+
+.searchContainer{
+  position: absolute !important;
+  bottom: 0;
+  height: auto;
+  margin-bottom: 5px;
+  width: 100%;
+}
+.buttonSearch{
+  position: absolute;
+  right: 0;
+  top: 0;
+  opacity: 0.2;
 }
