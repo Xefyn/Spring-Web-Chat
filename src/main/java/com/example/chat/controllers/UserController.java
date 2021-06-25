@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -15,13 +16,23 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @RequestMapping("/")
+  @RequestMapping(value = "/", method = RequestMethod.GET)
   public String renderPage(ModelMap map) {
     List<User> listUser = userService.getAllUsers();
-    System.out.print(listUser.get(0));
-    map.put("listUser", listUser);
-    return "chat";
+    map.addAttribute("listUser", listUser);
+    map.addAttribute("user", new User());
+    return "login";
     // return new ModelAndView("chat");
+  }
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
+  public String login(@ModelAttribute("user")User user, BindingResult result, ModelMap model) {
+    if (result.hasErrors()) {
+      return "error";
+    }
+    List<User> listUser = userService.getAllUsers();
+    model.addAttribute("listUser", listUser);
+    model.addAttribute("user", user.getId());
+    return "chat";
   }
 
   @GetMapping("/user/getAll")
