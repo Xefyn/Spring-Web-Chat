@@ -31,6 +31,22 @@
               <div class="friendName">
                 ${friend.name}
               </div>
+              <c:forEach items="${listChat}" var="chat">
+                <c:if test="${activeUser.id == chat.userSenderId}">
+                  <div style="width: 100%;display: flex;justify-content: flex-end;">
+                    <div class="chatBubbleRight">
+                      ${chat.message}
+                    </div>
+                  </div>
+                </c:if>
+                <c:if test="${activeUser.id != chat.userSenderId}">
+                  <div style="width: 100%;display: flex;justify-content: flex-start;">
+                    <div class="chatBubbleLeft">
+                      ${chat.message}
+                    </div>
+                  </div>
+                </c:if>
+              </c:forEach>
               <div class="chatContainer">
                 <input
                   style="border-radius: 25px;"

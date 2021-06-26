@@ -1,8 +1,9 @@
 package com.example.chat.models;
 
 import javax.persistence.*;
+
+
 import lombok.Data;
-import java.util.Date;
 
 @Data
 @Entity
@@ -24,6 +25,17 @@ public class Chat {
     private String message;
 
     @Column(name="createdAt")
-    private Date createdAt;
+    private String createdAt;
+    
+    public Chat(){
+        
+    }
 
+    public Chat(int id, int userReceiverId, int userSenderId, String message, String date){
+        this.id = Long.valueOf(id);
+        this.userReceiverId = Long.valueOf(userReceiverId);
+        this.userSenderId = Long.valueOf(userSenderId);
+        this.message = message;
+        this.createdAt = date;
+    }
 }
