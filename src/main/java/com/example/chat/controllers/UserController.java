@@ -30,8 +30,24 @@ public class UserController {
       return "error";
     }
     List<User> listUser = userService.getAllUsers();
+    User activeUser = userService.findUserById(user.getId());
     model.addAttribute("listUser", listUser);
-    model.addAttribute("user", user.getId());
+    model.addAttribute("activeUser", activeUser);
+    model.addAttribute("friend", new User());
+    return "chat";
+  }
+  @RequestMapping(value = "/selectFriend", method = RequestMethod.POST)
+  public String selectFriend(@RequestParam String id, @RequestParam String name, @RequestParam String activeId, @RequestParam String activeName, ModelMap model) {
+    User friend = new User();
+    friend.setId(Long.parseLong(id));
+    friend.setName(name);
+    User activeUser = new User();
+    activeUser.setId(Long.parseLong(activeId));
+    activeUser.setName(activeName);
+    List<User> listUser = userService.getAllUsers();
+    model.addAttribute("friend", friend);
+    model.addAttribute("activeUser", activeUser);
+    model.addAttribute("listUser", listUser);
     return "chat";
   }
 
