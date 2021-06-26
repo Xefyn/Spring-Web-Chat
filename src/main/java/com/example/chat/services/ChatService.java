@@ -13,11 +13,10 @@ public class ChatService {
 
   public List<Chat> getListChat(Long sender_id, Long receiver_id) {
     List<Chat> listChat = chatRepository.getListChat(sender_id, receiver_id);
-    System.out.print(listChat);
     return listChat;
   }
 
-  public List<Chat> getAllUsers() {
-    return chatRepository.findAll();
+  public void insertChat(Long sender_id, Long receiver_id, String message) {
+    chatRepository.insertChat(sender_id, receiver_id, message);
   }
 }

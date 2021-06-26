@@ -25,7 +25,7 @@ public class UserController {
   public String renderPage(ModelMap map) {
     List<User> listUser = userService.getAllUsers();
     map.addAttribute("listUser", listUser);
-    map.addAttribute("user", new User());
+    map.addAttribute("user", new User(null, null));
     return "login";
     // return new ModelAndView("chat");
   }
@@ -38,17 +38,14 @@ public class UserController {
     User activeUser = userService.findUserById(user.getId());
     model.addAttribute("listUser", listUser);
     model.addAttribute("activeUser", activeUser);
-    model.addAttribute("friend", new User());
+    model.addAttribute("friend", new User(null, null));
     return "chat";
   }
   @RequestMapping(value = "/selectFriend", method = RequestMethod.POST)
   public String selectFriend(@RequestParam String id, @RequestParam String name, @RequestParam String activeId, @RequestParam String activeName, ModelMap model) {
-    User friend = new User();
-    friend.setId(Long.parseLong(id));
-    friend.setName(name);
-    User activeUser = new User();
-    activeUser.setId(Long.parseLong(activeId));
-    activeUser.setName(activeName);
+    User friend = new User((Long.parseLong(id)), name);
+    User activeUser = new User(Long.parseLong(activeId), activeName);
+
     List<User> listUser = userService.getAllUsers();
     List<Chat> listChat = chatService.getListChat(activeUser.getId(), friend.getId());
     model.addAttribute("friend", friend);
@@ -59,17 +56,17 @@ public class UserController {
   }
 
   @RequestMapping(value = "/sendChat", method = RequestMethod.POST)
-  public String sendChat(@RequestParam String id, @RequestParam String name, @RequestParam String activeId, @RequestParam String activeName, @RequestParam String chat, ModelMap model) {
-    User friend = new User();
-    friend.setId(Long.parseLong(id));
-    friend.setName(name);
-    User activeUser = new User();
-    activeUser.setId(Long.parseLong(activeId));
-    activeUser.setName(activeName);
+  public String sendChat(@RequestParam String id, @RequestParam String name, @RequestParam String activeId, @RequestParam String activeName, @RequestParam String message, ModelMap model) {
+    User friend = new User((Long.parseLong(id)), name);
+    User activeUser = new User(Long.parseLong(activeId), activeName);
+    chatService.insertChat(activeUser.getId(), friend.getId(), message);
+
     List<User> listUser = userService.getAllUsers();
+    List<Chat> listChat = chatService.getListChat(activeUser.getId(), friend.getId());
     model.addAttribute("friend", friend);
     model.addAttribute("activeUser", activeUser);
     model.addAttribute("listUser", listUser);
+    model.addAttribute("listChat", listChat);
     return "chat";
   }
 

@@ -111,6 +111,7 @@ h2{
   float: right;
   color: black;
   padding: 5px 15px;
+  margin: 5px;
 }
 .chatBubbleLeft{
   position: relative;
@@ -119,4 +120,5 @@ h2{
   float: left;
   color: white;
   padding: 5px 15px;
+  margin: 5px;
 }

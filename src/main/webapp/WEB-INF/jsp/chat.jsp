@@ -31,31 +31,42 @@
               <div class="friendName">
                 ${friend.name}
               </div>
-              <c:forEach items="${listChat}" var="chat">
-                <c:if test="${activeUser.id == chat.userSenderId}">
-                  <div style="width: 100%;display: flex;justify-content: flex-end;">
-                    <div class="chatBubbleRight">
-                      ${chat.message}
+              <div style="padding: 5px;">
+                <c:forEach items="${listChat}" var="chat">
+                  <c:if test="${activeUser.id == chat.userSenderId}">
+                    <div style="width: 100%;display: flex;justify-content: flex-end;">
+                      <div class="chatBubbleRight">
+                        ${chat.message}
+                      </div>
                     </div>
-                  </div>
-                </c:if>
-                <c:if test="${activeUser.id != chat.userSenderId}">
-                  <div style="width: 100%;display: flex;justify-content: flex-start;">
-                    <div class="chatBubbleLeft">
-                      ${chat.message}
+                  </c:if>
+                  <c:if test="${activeUser.id != chat.userSenderId}">
+                    <div style="width: 100%;display: flex;justify-content: flex-start;">
+                      <div class="chatBubbleLeft">
+                        ${chat.message}
+                      </div>
                     </div>
-                  </div>
-                </c:if>
-              </c:forEach>
+                  </c:if>
+                </c:forEach>
+              </div>
               <div class="chatContainer">
-                <input
-                  style="border-radius: 25px;"
-                  class="form-control"
-                  placeholder="Enter a message"
-                />
-                <button class="btn buttonSearch">
-                  <i class="fas fa-paper-plane fa-2x"></i>
-                </button>
+                <form action="sendChat" method="post" style="margin-bottom: 0;">
+                  <input type="hidden" id="id" name="id" value="${friend.id}" />
+                  <input type="hidden" id="name" name="name" value="${friend.name}" />
+                  <input type="hidden" id="activeId" name="activeId" value="${activeUser.id}" />
+                  <input type="hidden" id="activeName" name="activeName" value="${activeUser.name}" />
+                  <input
+                    type="text"
+                    id="message"
+                    name="message"
+                    style="border-radius: 25px;"
+                    class="form-control"
+                    placeholder="Enter a message"
+                  />
+                  <button class="btn buttonSearch">
+                    <i class="fas fa-paper-plane fa-2x"></i>
+                  </button>
+                </form>
               </div>
             </div>
           </div>
